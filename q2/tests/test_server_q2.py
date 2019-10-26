@@ -157,6 +157,7 @@ def _run_server(pipe):
 def _upload_thought(user_id, timestamp, thought):
     message = _serialize_thought(user_id, timestamp, thought)
     with socket.socket() as connection:
+        connection.settimeout(2)
         connection.connect(_SERVER_ADDRESS)
         connection.sendall(message)
 
