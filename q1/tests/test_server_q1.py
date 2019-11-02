@@ -135,6 +135,7 @@ def test_cli_error():
     server = socket.socket()
     server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     server.bind(_SERVER_ADDRESS)
+    server.listen()
     process = subprocess.Popen(
         ['python', _SERVER_PATH, f'{host}:{port}'],
         stdout = subprocess.PIPE,
