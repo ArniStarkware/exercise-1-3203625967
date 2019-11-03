@@ -92,16 +92,16 @@ def test_performance(get_output):
     started = time.time()
     _upload_thought(_USER_1, _TIMESTAMP_1, _THOUGHT_1)
     _upload_thought(_USER_2, _TIMESTAMP_2, _THOUGHT_2)
-    output = get_output()
+    output_1 = get_output()
     elapsed = time.time() - started
-    assert _THOUGHT_1 in output
-    assert _THOUGHT_2 not in output
     assert 1 < elapsed < 2
-    output = get_output()
+    output_2 = get_output()
     elapsed = time.time() - started
-    assert _THOUGHT_1 not in output
-    assert _THOUGHT_2 in output
     assert 1 < elapsed < 2
+    assert (
+        (_THOUGHT_1 in output_1 and _THOUGHT_2 in output_2)
+        or (_THOUGHT_1 in output_2 and _THOUGHT_2 in output_1)
+    )
 
 
 def test_cli():
