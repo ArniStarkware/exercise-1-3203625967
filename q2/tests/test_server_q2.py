@@ -77,6 +77,7 @@ def test_timestamp(get_output):
 def test_partial_data(get_output):
     message = _serialize_thought(_USER_1, _TIMESTAMP_1, _THOUGHT_1)
     with socket.socket() as connection:
+        time.sleep(0.1) # Wait for server to start listening.
         connection.connect(_SERVER_ADDRESS)
         for c in message:
             connection.sendall(bytes([c]))
@@ -158,6 +159,7 @@ def _run_server(pipe):
 def _upload_thought(user_id, timestamp, thought):
     message = _serialize_thought(user_id, timestamp, thought)
     with socket.socket() as connection:
+        time.sleep(0.1) # Wait for server to start listening.
         connection.settimeout(2)
         connection.connect(_SERVER_ADDRESS)
         connection.sendall(message)
